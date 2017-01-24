@@ -1,0 +1,69 @@
+<system.serviceModel>
+    <services>
+      <service behaviorConfiguration="MyServiceBehavior" name="smw_service.smw_services">
+        <endpoint address="SoapService" behaviorConfiguration="WebBehavior" binding="basicHttpBinding" bindingConfiguration="webBindingHttp" contract="smw_service.ISmwServices" >
+        </endpoint>
+        <endpoint address="SoapService" behaviorConfiguration="WebBehavior" binding="basicHttpBinding" bindingConfiguration="webBindingHttps" contract="smw_service.ISmwServices">
+        </endpoint>
+        <endpoint address="" behaviorConfiguration="RESTEndPointBehavior" binding="webHttpBinding" bindingConfiguration="webBindingHttpMobile" contract="smw_service.ISmwServices"/>
+        <endpoint address="" behaviorConfiguration="RESTEndPointBehavior" binding="webHttpBinding" bindingConfiguration="webBindingHttpsMobile" contract="smw_service.ISmwServices"/>
+      </service>
+    </services>
+    <behaviors>
+
+      <serviceBehaviors>
+        <behavior name="MyServiceBehavior">
+          <serviceMetadata httpGetEnabled="True" httpsGetEnabled="true"/>
+          <serviceDebug includeExceptionDetailInFaults="true" />
+        </behavior>
+      </serviceBehaviors>
+
+      <endpointBehaviors>
+        <behavior name="WebBehavior" >         
+          <!--<webHttp/>-->
+        </behavior>
+        <behavior name="RESTEndPointBehavior">
+          <webHttp helpEnabled="true" automaticFormatSelectionEnabled="true"/>
+        </behavior>
+      </endpointBehaviors>
+
+    </behaviors>
+    <protocolMapping>
+      <add binding="basicHttpBinding" scheme="http" />
+      <add binding="basicHttpBinding" scheme="https" />
+    </protocolMapping>
+    <bindings>
+      <basicHttpBinding>
+        <binding name="webBindingHttp" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" transferMode="StreamedRequest">
+          <readerQuotas maxDepth="200" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <security mode="None">
+            <transport clientCredentialType="None" />
+          </security>
+        </binding>
+
+        <binding name="webBindingHttps" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" transferMode="StreamedRequest">
+          <readerQuotas maxDepth="200" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <security mode="Transport">
+            <transport clientCredentialType="None" />
+          </security>
+        </binding>
+      </basicHttpBinding>
+      
+      <webHttpBinding>
+        <binding name="webBindingHttpMobile" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" transferMode="StreamedRequest">
+          <readerQuotas maxDepth="200" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <security mode="None">
+            <transport clientCredentialType="None" />
+          </security>
+        </binding>
+
+        <binding name="webBindingHttpsMobile" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" transferMode="StreamedRequest">
+          <readerQuotas maxDepth="200" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+          <security mode="Transport">
+            <transport clientCredentialType="None" />
+          </security>
+        </binding>
+      </webHttpBinding>
+    </bindings>
+
+  </system.serviceModel>
